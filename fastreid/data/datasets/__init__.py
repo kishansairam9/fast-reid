@@ -21,6 +21,8 @@ from .AirportALERT import AirportALERT
 from .iLIDS import iLIDS
 from .pku import PKU
 from .prai import PRAI
+from .prid import PRID
+from .grid import GRID
 from .saivt import SAIVT
 from .sensereid import SenseReID
 from .sysu_mm import SYSU_mm
@@ -37,6 +39,5 @@ from .cuhk_sysu import cuhkSYSU
 from .veri import VeRi
 from .vehicleid import VehicleID, SmallVehicleID, MediumVehicleID, LargeVehicleID
 from .veriwild import VeRiWild, SmallVeRiWild, MediumVeRiWild, LargeVeRiWild
-
 
 __all__ = [k for k in globals().keys() if "builtin" not in k and not k.startswith("_")]
