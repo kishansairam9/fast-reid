@@ -89,6 +89,11 @@ def get_parser():
         help="maximum number of rank list to be visualized",
     )
     parser.add_argument(
+        "--num-gpus",
+        default=1,
+        help="maximum number of rank list to be visualized",
+    )
+    parser.add_argument(
         "--opts",
         help="Modify config options using the command-line 'KEY VALUE' pairs",
         default=[],
@@ -100,8 +105,10 @@ def get_parser():
 if __name__ == '__main__':
     args = get_parser().parse_args()
     cfg = setup_cfg(args)
+    print(args.opts)
+    exit()
     test_loader, num_query = build_reid_test_loader(cfg, args.dataset_name)
-    demo = FeatureExtractionDemo(cfg, parallel=args.parallel)
+    demo = FeatureExtractionDemo(cfg, parallel=args.parallel, num_gpus=args.num_gpus)
 
     logger.info("Start extracting image features")
     feats = []

@@ -59,6 +59,7 @@ class Visualizer:
             cmc, sort_idx = self.get_matched_result(q_idx)
             query_info = self.dataset[q_idx]
             query_img = query_info['images']
+            quer_pid = query_info['targets']
             cam_id = query_info['camids']
             query_name = query_info['img_paths'].split('/')[-1]
             all_imgs.append(query_img)
@@ -66,7 +67,7 @@ class Visualizer:
             plt.clf()
             ax = fig.add_subplot(1, max_rank + 1, 1)
             ax.imshow(query_img)
-            ax.set_title('{:.4f}/cam{}'.format(self.all_ap[q_idx], cam_id))
+            ax.set_title('{:.4f}/cam{}/vid{}'.format(self.all_ap[q_idx], cam_id, quer_pid))
             ax.axis("off")
             for i in range(max_rank):
                 if vis_label:
@@ -76,6 +77,7 @@ class Visualizer:
                 g_idx = self.num_query + sort_idx[i]
                 gallery_info = self.dataset[g_idx]
                 gallery_img = gallery_info['images']
+                gal_pid = gallery_info['targets']
                 cam_id = gallery_info['camids']
                 all_imgs.append(gallery_img)
                 gallery_img = np.rollaxis(np.asarray(gallery_img, dtype=np.uint8), 0, 3)
@@ -90,7 +92,7 @@ class Visualizer:
                                                height=gallery_img.shape[0] - 1,
                                                edgecolor=(0, 0, 1), fill=False, linewidth=5))
                 ax.imshow(gallery_img)
-                ax.set_title(f'{self.sim[q_idx, sort_idx[i]]:.3f}/{label}/cam{cam_id}')
+                ax.set_title(f'{self.sim[q_idx, sort_idx[i]]:.3f}/{label}/cam{cam_id}/vid{gal_pid}')
                 ax.axis("off")
             # if actmap:
             #     act_outputs = []
@@ -120,6 +122,7 @@ class Visualizer:
                     g_idx = self.num_query + sort_idx[j]
                     gallery_info = self.dataset[g_idx]
                     gallery_img = gallery_info['images']
+                    gal_pid = gallery_info['targets']
                     cam_id = gallery_info['camids']
                     gallery_img = np.rollaxis(np.asarray(gallery_img, dtype=np.uint8), 0, 3)
                     ax = fig.add_subplot(2, max_rank + 1, max_rank + 3 + i)
@@ -128,7 +131,7 @@ class Visualizer:
                                                edgecolor=(1, 0, 0),
                                                fill=False, linewidth=5))
                     ax.imshow(gallery_img)
-                    ax.set_title(f'{self.sim[q_idx, sort_idx[j]]:.3f}/cam{cam_id}')
+                    ax.set_title(f'{self.sim[q_idx, sort_idx[j]]:.3f}/cam{cam_id}/vid{gal_pid}')
                     ax.axis("off")
 
             plt.tight_layout()

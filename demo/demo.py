@@ -14,7 +14,7 @@ import numpy as np
 import tqdm
 from torch.backends import cudnn
 
-sys.path.append('..')
+sys.path.append('.')
 
 from fastreid.config import get_cfg
 from fastreid.utils.logger import setup_logger

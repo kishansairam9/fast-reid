@@ -21,7 +21,7 @@ except RuntimeError:
 
 
 class FeatureExtractionDemo(object):
-    def __init__(self, cfg, parallel=False):
+    def __init__(self, cfg, parallel=False, num_gpus=None):
         """
         Args:
             cfg (CfgNode):
@@ -32,7 +32,7 @@ class FeatureExtractionDemo(object):
         self.parallel = parallel
 
         if parallel:
-            self.num_gpus = torch.cuda.device_count()
+            self.num_gpus = torch.cuda.device_count() if not num_gpus else num_gpus
             self.predictor = AsyncPredictor(cfg, self.num_gpus)
         else:
             self.predictor = DefaultPredictor(cfg)

@@ -1,5 +1,7 @@
-
+apex
 logs
+failed_logs
+*.zip
 
 # compilation and distribution
 __pycache__
@@ -21,7 +23,7 @@ wheels/
 model_ts*.txt
 
 # ipython/jupyter notebooks
-*.ipynb
+# *.ipynb
 **/.ipynb_checkpoints/
 
 # Editor temporaries

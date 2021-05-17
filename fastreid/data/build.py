@@ -18,7 +18,8 @@ from .transforms import build_transforms
 
 __all__ = [
     "build_reid_train_loader",
-    "build_reid_test_loader"
+    "build_reid_test_loader",
+    "fast_batch_collator"
 ]
 
 _root = os.getenv("FASTREID_DATASETS", "datasets")
