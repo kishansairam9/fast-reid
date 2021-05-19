@@ -9,6 +9,7 @@ import io
 import sys
 
 import onnx
+import onnxoptimizer
 import torch
 from onnxsim import simplify
 from torch.onnx import OperatorExportTypes
@@ -106,14 +107,17 @@ def export_onnx_model(model, inputs):
                 operator_export_type=OperatorExportTypes.ONNX_ATEN_FALLBACK,
                 # verbose=True,  # NOTE: uncomment this for debugging
                 # export_params=True,
+                input_names=['imgs'],
+                output_names=['vecs'],
+                dynamic_axes={'imgs':{0: 'batch'}, 'vecs':{0: 'batch'}}
             )
             onnx_model = onnx.load_from_string(f.getvalue())
 
     # Apply ONNX's Optimization
-    all_passes = onnx.optimizer.get_available_passes()
+    all_passes = onnxoptimizer.get_available_passes()
     passes = ["extract_constant_to_initializer", "eliminate_unused_initializer", "fuse_bn_into_conv"]
     assert all(p in all_passes for p in passes)
-    onnx_model = onnx.optimizer.optimize(onnx_model, passes)
+    onnx_model = onnxoptimizer.optimize(onnx_model, passes)
     return onnx_model
 
 
@@ -130,10 +134,11 @@ if __name__ == '__main__':
     model.eval()
     logger.info(model)
 
-    inputs = torch.randn(1, 3, cfg.INPUT.SIZE_TEST[0], cfg.INPUT.SIZE_TEST[1])
+    shape = (1, 3, cfg.INPUT.SIZE_TEST[0], cfg.INPUT.SIZE_TEST[1])
+    inputs = torch.randn(shape) 
     onnx_model = export_onnx_model(model, inputs)
 
-    model_simp, check = simplify(onnx_model)
+    model_simp, check = simplify(onnx_model, dynamic_input_shape=shape, input_shapes={'imgs': list(shape)})
 
     model_simp = remove_initializer_from_input(model_simp)
 
