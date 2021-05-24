@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+torch = "==1.6.0"
+torchvision = "==0.7.0"
+matplotlib = "*"
+scipy = "*"
+numpy = "*"
+prettytable = "*"
+easydict = "*"
+scikit-learn = "*"
+pyyaml = "*"
+yacs = "*"
+termcolor = "*"
+tabulate = "*"
+tensorboard = "*"
+opencv-python = "*"
+gdown = "*"
+faiss-gpu = "*"
+Cython = "*"
+Pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
+

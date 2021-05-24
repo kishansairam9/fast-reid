@@ -1,5 +1,7 @@
 
 logs
+apex/
+*.out
 
 # compilation and distribution
 __pycache__
