@@ -18,7 +18,7 @@ MODEL:
 
 DATASETS:
   NAMES: ("VeRiWild",)
-  TESTS: ("SmallVeRiWild", "MediumVeRiWild", "LargeVeRiWild",)
+  TESTS: ("SmallVeRiWild", "MediumVeRiWild",)
 
 SOLVER:
   IMS_PER_BATCH: 384 # 512 For 4 GPUs
