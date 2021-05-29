@@ -69,7 +69,7 @@ def build_transforms(cfg, is_train=True):
             # print("NOTE::::: USING ABNORMAL TRAIN SIZE")
             ##################################
             print("NOTE::::: USING RANDOM 0.5 ABNORMAL TRAIN SIZE")
-            res.append(T.RandomApply(T.Resize([80, 80], interpolation=3), p=0.5)) # MAKE IT EVEN LOWER SIZE AND SCALE BACK
+            res.append(T.RandomApply([T.Resize([80, 80], interpolation=3)], p=0.5)) # MAKE IT EVEN LOWER SIZE AND SCALE BACK
             print("NOTE::::: USING RANDOM 0.5 ABNORMAL TRAIN SIZE")
             ##################################
             res.append(T.Resize(size_train[0] if len(size_train) == 1 else size_train, interpolation=3))
@@ -108,7 +108,7 @@ def build_transforms(cfg, is_train=True):
             # print("NOTE::::: USING ABNORMAL TEST SIZE")
             ##################################
             print("NOTE::::: USING RANDOM 0.5 ABNORMAL TEST SIZE")
-            res.append(T.RandomApply(T.Resize([80, 80], interpolation=3), p=0.5)) # MAKE IT EVEN LOWER SIZE AND SCALE BACK
+            res.append(T.RandomApply([T.Resize([80, 80], interpolation=3)], p=0.5)) # MAKE IT EVEN LOWER SIZE AND SCALE BACK
             print("NOTE::::: USING RANDOM 0.5 ABNORMAL TEST SIZE")
             ##################################
             res.append(T.Resize(size_test[0] if len(size_test) == 1 else size_test, interpolation=3))
